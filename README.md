@@ -41,7 +41,7 @@ module.exports = {
 
 ```js
 // index.js
-require('config2')({config: require(./config)}).then(
+require('no-config')({config: require(./config)}).then(
 	function(config) {
 		console.log('ENV', config.env)
 		

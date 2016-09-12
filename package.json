@@ -1,5 +1,5 @@
 {
-  "name": "config2",
+  "name": "no-config",
   "version": "1.0.0",
   "description": "config and resource loader",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fedor/node-config2.git"
+    "url": "git+https://github.com/fedor/node-no-config.git"
   },
   "keywords": [
     "environment",
@@ -29,9 +29,9 @@
   "author": "Fedor Korshunov <mail@fedor.cc>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fedor/node-config2/issues"
+    "url": "https://github.com/fedor/node-no-config/issues"
   },
-  "homepage": "https://github.com/fedor/node-config2#readme",
+  "homepage": "https://github.com/fedor/node-no-config#readme",
   "dependencies": {
     "co": "^4.6.0"
   }
