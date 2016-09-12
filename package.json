@@ -1,0 +1,38 @@
+{
+  "name": "config2",
+  "version": "1.0.0",
+  "description": "config and resource loader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fedor/node-config2.git"
+  },
+  "keywords": [
+    "environment",
+    "env",
+    "config-node",
+    "node-config",
+    "configuration",
+    "config",
+    "conf",
+    "node_env",
+    "loader",
+    "load",
+    "res",
+    "resource",
+    "init",
+    "start"
+  ],
+  "author": "Fedor Korshunov <mail@fedor.cc>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fedor/node-config2/issues"
+  },
+  "homepage": "https://github.com/fedor/node-config2#readme",
+  "dependencies": {
+    "co": "^4.6.0"
+  }
+}
