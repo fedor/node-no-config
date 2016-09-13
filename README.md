@@ -1,5 +1,8 @@
+## Installation
+```
+$ npm install no-config
+```
 ## Quick start
-
 ```js
 // config.js
 module.exports = {
@@ -57,14 +60,14 @@ require('no-config')({
 	}
 )
 ```
-
 ```
-> npm install no-config
-> NODE_ENV=development node index.js
+$ NODE_ENV=development node index.js
 ENV development
 Mongo: 127.0.0.1:27017/test
 Redis: 127.0.0.1:6379
-> NODE_ENV=production node index.js
+```
+```
+$ NODE_ENV=production node index.js
 ENV production
 Mongo: 192.168.0.10:27017/prod
 Redis: 192.168.0.11:6379
