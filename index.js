@@ -29,13 +29,13 @@ module.exports = require('co').wrap(function* (params) {
 		var resourceName   = resourcesList[i]
 		var resource       = config[resourceName]
 		var default_config = resource.$default || {}
-		var env_config     = resource['$' + env] || {}
+		var env_config     = resource[env] || {}
 		result[resourceName] = Object.assign({}, default_config, env_config)
 	}
 	for (i = 0; i < init.length; i++) {
 		var resourceName = init[i]
 		var resource = config[resourceName]
-		if (!resource.$init) {
+		if (!resource.init) {
 			continue
 		}
 		resourceConfig = result[resourceName]
@@ -49,8 +49,8 @@ module.exports = require('co').wrap(function* (params) {
 			console.log()
 		}
 		try {
-			resourceConfig.$instance = resource.$init(resourceConfig)
-			resourceConfig.$instance = yield resourceConfig.$instance
+			resourceConfig.instance = resource.init(resourceConfig)
+			resourceConfig.instance = yield resourceConfig.instance
 		} catch (e) {
 			if (!e instanceof TypeError) {
 				throw e
