@@ -1,6 +1,6 @@
 {
   "name": "no-config",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "config and resource loader",
   "main": "index.js",
   "scripts": {

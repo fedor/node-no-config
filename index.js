@@ -4,7 +4,7 @@ module.exports = require('co').wrap(function* (params) {
 		return (val !== undefined) ? val : def
 	}
 
-	var env           = (process.env.NODE_ENV || 'development').toLowerCase()
+	var env           = process.env.NODE_ENV
 	var config        = params.config
 	var resourcesList = Object.keys(config)
 	var init          = get(params.init, resourcesList)
@@ -25,13 +25,12 @@ module.exports = require('co').wrap(function* (params) {
 	}
 
 	var result = {}
-	for (var i = 0; i < resourcesList.length; i++) {
-		var resourceName   = resourcesList[i]
+	resourcesList.forEach(function (resourceName) {
 		var resource       = config[resourceName]
-		var default_config = resource.$default || {}
+		var default_config = resource.default || {}
 		var env_config     = resource[env] || {}
 		result[resourceName] = Object.assign({}, default_config, env_config)
-	}
+	})
 	for (i = 0; i < init.length; i++) {
 		var resourceName = init[i]
 		var resource = config[resourceName]
@@ -57,6 +56,6 @@ module.exports = require('co').wrap(function* (params) {
 			}
 		}
 	}
-	result.$env = env
+	result.env = env
 	return result
 })
