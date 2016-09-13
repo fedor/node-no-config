@@ -96,18 +96,19 @@ Loads resources from `parameters.config` based on `NODE_ENV` environment variabl
 
 **Parameters**
 
-| Name         | Required? | Type            | Default       | Description                                              |
-| ------------ | --------- | --------------- | ------------- | -------------------------------------------------------- |
-| config       | Required  | Object          |               | [Configuration object](configuration-object)             |
-| init         | Optional  | List of strings | All Resources | Resources to initialize                                  |
-| verbose      | Optional  | Boolean         | `false`       | Print resource input prior to call its `init()` function |
-| mask_secrets | Optional  | Boolean         | `true`        | if `verbose === true` will hide input value if its key contains substrings: `secret`, `token`, `key`, `pass` or `pwd` |
+| Name           | Required? | Type            | Default       | Description                                              |
+| -------------- | --------- | --------------- | ------------- | -------------------------------------------------------- |
+| `config`       | Required  | Object          |               | [Configuration object](configuration-object)             |
+| `init`         | Optional  | List of strings | All Resources | Resources to initialize                                  |
+| `verbose`      | Optional  | Boolean         | `false`       | Print resource input prior to call its `init()` function |
+| `mask_secrets` | Optional  | Boolean         | `true`        | if `verbose === true` will hide input value if its key contains substrings: `secret`, `token`, `key`, `pass` or `pwd` |
 
 ### Configuration object
 Every high-level key in configuration object is a resource name.
-| Name              | Required? | Type       | Default            | Description. Handling                               |
-| ----------------- | --------- | -----------| ------------------ | --------------------------------------------------- |
-| <RESOURCE>        | Optional  | Object     |                    | Resource configuration                              |
-| <RESOURCE>.defaut | Optional  | Object     | {}                 | Default values                                      |
-| <RESOURCE>.<ENV>  | Optional  | Object     | {}                 | <ENV> specific values. If a key duplicates `default` key from, env-specific value is used |
-| <RESOURCE>.init   | Optional  | Function, Generator function  | | Called to initalize resource, `<RESOURCE>.init(result)`. If returns Promise or Generator, it got resolved with [co](https://github.com/tj/co). Result is saved to `result.instance`. |
+
+| Name                | Required? | Type       | Default            | Description. Handling                               |
+| ------------------- | --------- | -----------| ------------------ | --------------------------------------------------- |
+| `<RESOURCE>`        | Optional  | Object     |                    | Resource configuration                              |
+| `<RESOURCE>.defaut` | Optional  | Object     | `{}`               | Default values                                      |
+| `<RESOURCE>.<ENV>`  | Optional  | Object     | `{}`               | ENV specific values. If a key duplicates `default` key from, env-specific value is used |
+| `<RESOURCE>.init`   | Optional  | Function, Generator function  | | Called to initalize resource, `<RESOURCE>.init(result)`. If returns Promise or Generator, it got resolved with [co](https://github.com/tj/co). Result is saved to `result.instance`. |
