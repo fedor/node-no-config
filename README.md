@@ -1,7 +1,8 @@
-[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api)
+[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [TODO](#todo)
 ## Intro
 
 Why not `config`? **Answer:** [(Node.js) config done right](https://medium.com/@fedorHK/no-config-b3f1171eecd5).
+
 **tl;dr:** Because `config` separates data to different files based on `NODE_ENV`, not resources.
 
 **Installation:**
@@ -112,3 +113,7 @@ Every high-level key in configuration object is a resource name.
 | `<RESOURCE>.defaut` | Optional  | Object     | `{}`               | Default values                                      |
 | `<RESOURCE>.<ENV>`  | Optional  | Object     | `{}`               | ENV specific values. If a key duplicates `default` key from, env-specific value is used |
 | `<RESOURCE>.init`   | Optional  | Function, Generator function  | | Called to initalize resource, `<RESOURCE>.init(result)`. If returns Promise or Generator, it got resolved with [co](https://github.com/tj/co). Result is saved to `result.instance`. |
+
+## TODO
+ - Add unit tests
+ - Integrate with Travis CI (or similar service)
