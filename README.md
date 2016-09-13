@@ -1,4 +1,4 @@
-[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [Reference](#reference)
+[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api)
 ## Intro
 
 Why not `config`? **Answer:** [(Node.js) config done right](https://medium.com/@fedorHK/no-config-b3f1171eecd5).
@@ -98,7 +98,7 @@ Loads resources from `parameters.config` based on `NODE_ENV` environment variabl
 
 | Name           | Required? | Type            | Default       | Description                                              |
 | -------------- | --------- | --------------- | ------------- | -------------------------------------------------------- |
-| `config`       | Required  | Object          |               | [Configuration object](configuration-object)             |
+| `config`       | Required  | Object          |               | [Configuration object](#configuration-object)             |
 | `init`         | Optional  | List of strings | All Resources | Resources to initialize                                  |
 | `verbose`      | Optional  | Boolean         | `false`       | Print resource input prior to call its `init()` function |
 | `mask_secrets` | Optional  | Boolean         | `true`        | if `verbose === true` will hide input value if its key contains substrings: `secret`, `token`, `key`, `pass` or `pwd` |
