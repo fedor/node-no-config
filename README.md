@@ -1,11 +1,8 @@
 [Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [Reference](#reference)
 ## Intro
 
-Why not `config`?
-
-Answer: [(Node.js) config done right](https://medium.com/@fedorHK/no-config-b3f1171eecd5)
-
-TL;DR: Because `config` separates data to different files based on `NODE_ENV`, not resources.
+Why not `config`? **Answer:** [(Node.js) config done right](https://medium.com/@fedorHK/no-config-b3f1171eecd5).
+**tl;dr:** Because `config` separates data to different files based on `NODE_ENV`, not resources.
 
 **Installation:**
 ```
@@ -51,11 +48,6 @@ $ NODE_ENV=development node index.js
 ENV development
 Redis: 127.0.0.1:6379
 ```
-```
-$ NODE_ENV=production node index.js
-ENV production
-Redis: 192.168.0.10:6379
-```
 ## Quick start (ES6)
 Since no-config returns a promise it is much better to use ES6 generators, arrow functions and [co](https://github.com/tj/co).
 
@@ -100,13 +92,22 @@ co(function* () {
 ```js
 require('no-config')(parameters)
 ```
-Returns a Promise.
+Loads resources from `parameters.config` based on `NODE_ENV` environment variable. Returns a Promise which resolves ones all resources are initialized.
 
 **Parameters**
 
 | Name         | Required? | Type            | Default       | Description                                              |
 | ------------ | --------- | --------------- | ------------- | -------------------------------------------------------- |
-| config       | Required  | Object          |               | [Configuration object](#configuration-object)            |
+| config       | Required  | Object          |               | [Configuration object](configuration-object)             |
 | init         | Optional  | List of strings | All Resources | Resources to initialize                                  |
 | verbose      | Optional  | Boolean         | `false`       | Print resource input prior to call its `init()` function |
 | mask_secrets | Optional  | Boolean         | `true`        | if `verbose === true` will hide input value if its key contains substrings: `secret`, `token`, `key`, `pass` or `pwd` |
+
+### Configuration object
+Every high-level key in configuration object is a resource name.
+| Name              | Required? | Type       | Default            | Description. Handling                               |
+| ----------------- | --------- | -----------| ------------------ | --------------------------------------------------- |
+| <RESOURCE>        | Optional  | Object     |                    | Resource configuration                              |
+| <RESOURCE>.defaut | Optional  | Object     | {}                 | Default values                                      |
+| <RESOURCE>.<ENV>  | Optional  | Object     | {}                 | <ENV> specific values. If a key duplicates `default` key from, env-specific value is used |
+| <RESOURCE>.init   | Optional  | Function, Generator function  | | Called to initalize resource, `<RESOURCE>.init(result)`. If returns Promise or Generator, it got resolved with [co](https://github.com/tj/co). Result is saved to `result.instance`. |
