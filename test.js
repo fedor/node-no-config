@@ -1,3 +1,5 @@
+'use strict'
+
 const test = require('tape')
 const noNodeConfig = require('./index')
 const co = require('co')
