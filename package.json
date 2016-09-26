@@ -4,7 +4,8 @@
   "description": "config and resource loader",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js",
+    "coverage": "istanbul cover tape test.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "co": "^4.6.0"
   },
   "devDependencies": {
+    "istanbul": "^0.4.5",
     "tape": "^4.6.0"
   }
 }
