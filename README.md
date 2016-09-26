@@ -1,11 +1,9 @@
-[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [TODO](#todo)
+[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [Contributors](#contributors) | [TODO](#todo)
 ## Intro
 
-Why not `config`? **Answer:** [(Node.js) config done right](https://medium.com/@fedorHK/no-config-b3f1171eecd5).
+> Why not `config`?
 
-**tl;dr:** Because `config` separates data to different files based on `NODE_ENV`, not resources.
-
-**Installation:**
+[**Answer**](https://medium.com/@fedorHK/no-config-b3f1171eecd5). TL;DR: `config` separates data to different files based on `NODE_ENV`, not resources.  
 ```
 $ npm install no-config
 ```
@@ -50,8 +48,7 @@ ENV development
 Redis: 127.0.0.1:6379
 ```
 ## Quick start (ES6)
-Since no-config returns a promise it is much better to use ES6 generators, arrow functions and [co](https://github.com/tj/co).
-
+Since no-config returns a promise it is much better to use ES6 generators, arrow functions and [co](https://github.com/tj/co).  
 **If you are not familiar with co, check this step-by-step [tutorial](https://github.com/fedor/co_demo)**
 
 ```js
@@ -99,7 +96,7 @@ Loads resources from `parameters.config` based on `NODE_ENV` environment variabl
 
 | Name           | Required? | Type            | Default       | Description                                              |
 | -------------- | --------- | --------------- | ------------- | -------------------------------------------------------- |
-| `config`       | Required  | Object          |               | [Configuration object](#configuration-object)             |
+| `config`       | Required  | Object          |               | [Configuration object](#configuration-object)            |
 | `init`         | Optional  | List of strings | All Resources | Resources to initialize                                  |
 | `verbose`      | Optional  | Boolean         | `false`       | Print resource input prior to call its `init()` function |
 | `mask_secrets` | Optional  | Boolean         | `true`        | if `verbose === true` will hide input value if its key contains substrings: `secret`, `token`, `key`, `pass` or `pwd` |
@@ -108,12 +105,17 @@ Loads resources from `parameters.config` based on `NODE_ENV` environment variabl
 Every high-level key in configuration object is a resource name.
 
 | Name                | Required? | Type       | Default            | Description. Handling                               |
-| ------------------- | --------- | -----------| ------------------ | --------------------------------------------------- |
+| ------------------- | --------- | ---------- | ------------------ | --------------------------------------------------- |
 | `<RESOURCE>`        | Optional  | Object     |                    | Resource configuration                              |
 | `<RESOURCE>.defaut` | Optional  | Object     | `{}`               | Default values                                      |
-| `<RESOURCE>.<ENV>`  | Optional  | Object     | `{}`               | ENV specific values. If a key duplicates `default` key from, env-specific value is used |
+| `<RESOURCE>.<ENV>`  | Optional  | Object     | `{}`               | ENV specific values. If a key duplicates `default` key, env-specific value is used |
 | `<RESOURCE>.init`   | Optional  | Function, Generator function  | | Called to initalize resource, `<RESOURCE>.init(result)`. If returns Promise or Generator, it got resolved with [co](https://github.com/tj/co). Result is saved to `result.instance`. |
 
+## Contributors
+Fedor Korshunov - [view contributions](https://github.com/fedor/node-no-config/commits?author=fedor)  
+Anurag Sharma - [view contributions](https://github.com/fedor/node-no-config/commits?author=anuragCES)
+
 ## TODO
- - Add unit tests
- - Integrate with Travis CI (or similar service)
+ - Unit tests
+ - Test coverage
+ - Integration with CI system
