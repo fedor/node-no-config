@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/fedor/node-no-config.svg?branch=master)](https://travis-ci.org/fedor/node-no-config)  
+[![Build Status](https://travis-ci.org/fedor/node-no-config.svg?branch=master)](https://travis-ci.org/fedor/node-no-config)
+[![codecov](https://codecov.io/gh/fedor/node-no-config/branch/master/graph/badge.svg)](https://codecov.io/gh/fedor/node-no-config)  
 [Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [Contributors](#contributors) | [TODO](#todo)
 ## Intro  
 > Why not `config`?
