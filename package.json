@@ -4,7 +4,7 @@
   "description": "config and resource loader",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover tape test.js"
+    "test": "istanbul cover -x test.js tape test.js"
   },
   "repository": {
     "type": "git",
