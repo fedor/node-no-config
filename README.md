@@ -116,6 +116,6 @@ Fedor Korshunov - [view contributions](https://github.com/fedor/node-no-config/c
 Anurag Sharma - [view contributions](https://github.com/fedor/node-no-config/commits?author=anuragCES)
 
 ## TODO
- - Unit tests
- - Test coverage
- - Integration with CI system
+ - Unit tests / improve test coverage
+ - Integration with Travis CI
+ - Integration with codecov.io
