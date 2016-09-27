@@ -1,6 +1,6 @@
+[![Build Status](https://travis-ci.org/fedor/node-no-config.svg?branch=master)](https://travis-ci.org/fedor/node-no-config)  
 [Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [Contributors](#contributors) | [TODO](#todo)
-## Intro
-
+## Intro  
 > Why not `config`?
 
 [**Answer**](https://medium.com/@fedorHK/no-config-b3f1171eecd5). TL;DR: `config` separates data to different files based on `NODE_ENV`, not resources.  
