@@ -1,69 +1,293 @@
 'use strict'
 
-const test = require('tape')
-const noNodeConfig = require('./index')
 const co = require('co')
+const test = require('tape')
+const cloneDeep = require('lodash.clonedeep')
+const intercept = require('intercept-stdout')
 
-// Mock config data
-const keys = ['mongo', 'redis']
-const PROCESS_ENV = process.env.NODE_ENV = 'development'
-const config = {
-	mongo: {
+const noConfig = require('./index')
+
+const config_base = {
+	resource1: {
 		default: {
-			db: 'test',
-			port: 27017
+			key0: 'resource1-default-value0',
+			key1: 'resource1-default-value1'
 		},
-		development: {
-			host: '127.0.0.1'
+		env1: {
+			key1: 'resource1-env1-value1',
+			key2: 'resource1-env1-value2'
 		},
-		production: {
-			db: 'prod',
-			host: '192.168.0.10'
+		env2: {
+			key1: 'resource1-env2-value1',
+			key2: 'resource1-env2-value2'
 		}
 	},
-	redis: {
+	resource2: {
 		default: {
-			port: 6379
+			key0: 'resource2-default-value0',
+			key1: 'resource2-default-value1'
 		},
-		development: {
-			host: '127.0.0.1'
+		env1: {
+			key1: 'resource2-env1-value1',
+			key2: 'resource2-env1-value2'
 		},
-		production: {
-			host: '192.168.0.11'
+		env2: {
+			key1: 'resource2-env2-value1',
+			key2: 'resource2-env2-value2'
 		}
 	}
 }
 
-test('Should initialize config object', co.wrap(function* (t) {
+test('NODE_ENV not set (removed): default values only', co.wrap(function* (t) {
 	try {
-		let result = yield noNodeConfig({config})
-		// assertions
-		t.equal(typeof result, 'object', 'Returned value is an object')
-		t.equal(Object.keys(result).length, Object.keys(config).length + 1, 'Returned object has equal length as input')
-		let keyMatchSuccess = true
-		keys.map((key) => {
-			if (!(key in result)) {
-				keyMatchSuccess = false
+		delete process.env.NODE_ENV
+		let config = cloneDeep(config_base)
+		let result = yield noConfig({config})
+		let expected = {
+			env: undefined,
+			resource1: {
+				key0: 'resource1-default-value0',
+				key1: 'resource1-default-value1'
+			},
+			resource2: {
+				key0: 'resource2-default-value0',
+				key1: 'resource2-default-value1'
 			}
-		})
-		t.equal(true, keyMatchSuccess, 'Contains all keys as input config object')
+		}
+		t.deepEqual(result, expected)
 	} catch (e) {
-		t.equal(e, undefined, 'No error')
+		t.fail(e)
 	}
 	t.end()
 }))
 
-test('Should return correct values as passed input', co.wrap(function* (t) {
+test('NODE_ENV not exists: default values only', co.wrap(function* (t) {
 	try {
-		let result = yield noNodeConfig({config})
-		// assertions
-		t.equal(result.mongo.db, config.mongo.default.db, 'Has correct mongo db value')
-		t.equal(result.mongo.port, config.mongo.default.port, 'Has correct mongo port value')
-		t.equal(result.redis.port, config.redis.default.port, 'Has correct redis port value')
-		t.equal(result.env, PROCESS_ENV, 'Has correct PROCESS_ENV')
+		process.env.NODE_ENV = 'env0'
+		let config = cloneDeep(config_base)
+		let result = yield noConfig({config})
+		let expected = {
+			env: 'env0',
+			resource1: {
+				key0: 'resource1-default-value0',
+				key1: 'resource1-default-value1'
+			},
+			resource2: {
+				key0: 'resource2-default-value0',
+				key1: 'resource2-default-value1'
+			}
+		}
+		t.deepEqual(result, expected)
+	} catch (e) {
+		t.fail(e)
 	}
-	catch (e) {
-		t.equal(e, undefined, 'No error')
+	t.end()
+}))
+
+test('NODE_ENV not exists, no default: empty objects', co.wrap(function* (t) {
+	try {
+		delete process.env.NODE_ENV
+		let config = cloneDeep(config_base)
+		delete config.resource1.default
+		delete config.resource2.default
+		let result = yield noConfig({config})
+		let expected = {
+			env: undefined,
+			resource1: {},
+			resource2: {}
+		}
+		t.deepEqual(result, expected)
+	} catch (e) {
+		t.fail(e)
 	}
+	t.end()
+}))
+
+test('NODE_ENV set: NODE_ENV specific values', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		let result = yield noConfig({config})
+		let expected = {
+			env: 'env1',
+			resource1: {
+				key0: 'resource1-default-value0',
+				key1: 'resource1-env1-value1',
+				key2: 'resource1-env1-value2'
+			},
+			resource2: {
+				key0: 'resource2-default-value0',
+				key1: 'resource2-env1-value1',
+				key2: 'resource2-env1-value2'
+			}
+		}
+		t.deepEqual(result, expected)
+	} catch (e) {
+		t.fail(e)
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, init() is a function: init() gets expected input, result is captured', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.init = (input) => {
+			let expected_input = {
+				key0: 'resource1-default-value0',
+				key1: 'resource1-env1-value1',
+				key2: 'resource1-env1-value2'
+			}
+			t.deepEqual(input, expected_input)
+			return 'resource1 init called'
+		}
+		config.resource2.init = function (input) {
+			let expected_input = {
+				key0: 'resource2-default-value0',
+				key1: 'resource2-env1-value1',
+				key2: 'resource2-env1-value2'
+			}
+			t.deepEqual(input, expected_input)
+			return 'resource2 init called'
+		}
+		let result = yield noConfig({config})
+		t.equal(result.resource1.instance, 'resource1 init called')
+		t.equal(result.resource2.instance, 'resource2 init called')
+	} catch (e) {
+		t.fail(e)
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, init() returns a Promise, Promise resolves: result is captured', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.init = function (input) {
+			return Promise.resolve('Promise result')
+		}
+		let result = yield noConfig({config})
+		t.equal(result.resource1.instance, 'Promise result')
+	} catch (e) {
+		t.fail(e)
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, init() is a generator function and returns result: result is captured', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.init = function* (input) {
+			return 'generator function result'
+		}
+		let result = yield noConfig({config})
+		t.equal(result.resource1.instance, 'generator function result')
+	} catch (e) {
+		t.fail(e)
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, init() returns Promise, Promise rejects: rejects', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.init = function (input) {
+			return Promise.reject('Promise error')
+		}
+		yield noConfig({config})
+		t.fail('Failure was expected')
+	} catch (e) {
+		t.equal(e, 'Promise error')
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, init() is a function and throws error: rejects', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.init = function (input) {
+			throw 'function error'
+		}
+		yield noConfig({config})
+		t.fail('Failure was expected')
+	} catch (e) {
+		t.equal(e, 'function error')
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, init() is a generator function and throws error: rejects', co.wrap(function* (t) {
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.init = function* (input) {
+			throw 'generator function error'
+		}
+		yield noConfig({config})
+		t.fail('Failure was expected')
+	} catch (e) {
+		t.equal(e, 'generator function error')
+	}
+	t.end()
+}))
+
+test('NODE_ENV set, verbose mode: result is printed, "key*" values are masked', co.wrap(function* (t) {
+	let lines = []
+	let unhook_intercept = intercept(function (line) {
+		line = line.trim()
+		if (line) {
+			lines.push(line)
+		}
+	})
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.default.param3 = 'resource1-default-value3'
+		config.resource1.init = function () {}
+		yield noConfig({config, verbose: true})
+		let expected_lines = [
+			'[resource1]: starting',
+			'[resource1]: key0:           ********************',
+			'[resource1]: key1:           ********************',
+			'[resource1]: param3:         resource1-default-value3',
+			'[resource1]: key2:           ********************'
+		]
+		t.deepEqual(lines, expected_lines)
+	} catch (e) {
+		t.fail(e)
+	}
+	unhook_intercept()
+	t.end()
+}))
+
+test('NODE_ENV set, verbose mode, unmasked: result is printed', co.wrap(function* (t) {
+	let lines = []
+	let unhook_intercept = intercept(function (line) {
+		line = line.trim()
+		if (line) {
+			lines.push(line)
+		}
+	})
+	try {
+		process.env.NODE_ENV = 'env1'
+		let config = cloneDeep(config_base)
+		config.resource1.default.param3 = 'resource1-default-value3'
+		config.resource1.init = function () {}
+		yield noConfig({config, verbose: true, mask_secrets: false})
+		let expected_lines = [
+			'[resource1]: starting',
+			'[resource1]: key0:           resource1-default-value0',
+			'[resource1]: key1:           resource1-env1-value1',
+			'[resource1]: param3:         resource1-default-value3',
+			'[resource1]: key2:           resource1-env1-value2'
+		]
+		t.deepEqual(lines, expected_lines)
+	} catch (e) {
+		t.fail(e)
+	}
+	unhook_intercept()
 	t.end()
 }))

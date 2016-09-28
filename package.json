@@ -1,6 +1,6 @@
 {
   "name": "no-config",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "config and resource loader",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,9 @@
     "co": "^4.6.0"
   },
   "devDependencies": {
+    "intercept-stdout": "^0.1.2",
     "istanbul": "^0.4.5",
+    "lodash.clonedeep": "^4.5.0",
     "tape": "^4.6.0"
   }
 }
