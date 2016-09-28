@@ -130,5 +130,3 @@ Anurag Sharma - [view contributions](https://github.com/fedor/node-no-config/com
 
 ## TODO
  - Unit tests / improve test coverage
- - Integration with Travis CI
- - Integration with codecov.io
