@@ -1,5 +1,17 @@
-[![Build Status](https://travis-ci.org/fedor/node-no-config.svg?branch=master)](https://travis-ci.org/fedor/node-no-config)
-[![codecov](https://codecov.io/gh/fedor/node-no-config/branch/master/graph/badge.svg)](https://codecov.io/gh/fedor/node-no-config)  
+[npm-image]: https://img.shields.io/npm/v/no-config.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/no-config
+[travis-image]: https://img.shields.io/travis/fedor/node-no-config.svg?style=flat-square
+[travis-url]: https://travis-ci.org/fedor/node-no-config
+[codecov-image]: https://img.shields.io/codecov/c/github/fedor/node-no-config.svg?style=flat-square
+[codecov-url]: https://codecov.io/gh/fedor/node-no-config
+[david-image]: https://img.shields.io/david/fedor/node-no-config.svg?style=flat-square
+[david-dev-image]: https://img.shields.io/david/dev/fedor/node-no-config.svg?style=flat-square
+[david-url]: https://david-dm.org/fedor/node-no-config
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][codecov-image]][codecov-url]
+[![Dependency Status][david-image]][david-url]
+[![Dependency Status][david-dev-image]][david-url]  
 [Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [Contributors](#contributors) | [TODO](#todo)
 ## Intro  
 > Why not `config`?
