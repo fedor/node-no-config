@@ -31,7 +31,7 @@ module.exports = require('co').wrap(function* (params) {
 		var env_config     = resource[env] || {}
 		result[resourceName] = Object.assign({}, default_config, env_config)
 	})
-	for (i = 0; i < init.length; i++) {
+	for (var i = 0; i < init.length; i++) {
 		var resourceName = init[i]
 		var resource = config[resourceName]
 		if (!resource.init) {
@@ -51,7 +51,8 @@ module.exports = require('co').wrap(function* (params) {
 			resourceConfig.instance = resource.init(resourceConfig)
 			resourceConfig.instance = yield resourceConfig.instance
 		} catch (e) {
-			if (!e instanceof TypeError) {
+			// if TypeError === co error, resourceConfig.instance must not be "yieldable"
+			if (!(e instanceof TypeError)) {
 				throw e
 			}
 		}
