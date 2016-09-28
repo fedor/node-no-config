@@ -129,4 +129,4 @@ Fedor Korshunov - [view contributions](https://github.com/fedor/node-no-config/c
 Anurag Sharma - [view contributions](https://github.com/fedor/node-no-config/commits?author=anuragCES)
 
 ## TODO
- - Unit tests / improve test coverage
+ - Add ESLint check
