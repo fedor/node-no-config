@@ -241,6 +241,7 @@ test('NODE_ENV set, verbose mode: result is printed, "key*" values are masked', 
 		if (line) {
 			lines.push(line)
 		}
+		return ''
 	})
 	try {
 		process.env.NODE_ENV = 'env1'
@@ -270,6 +271,7 @@ test('NODE_ENV set, verbose mode, unmasked: result is printed', co.wrap(function
 		if (line) {
 			lines.push(line)
 		}
+		return ''
 	})
 	try {
 		process.env.NODE_ENV = 'env1'
