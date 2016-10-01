@@ -4,7 +4,7 @@
   "description": "config and resource loader",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover -x test.js tape test.js"
+    "test": "./node_modules/eslint/bin/eslint.js index.js && istanbul cover -x test.js tape test.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "co": "^4.6.0"
   },
   "devDependencies": {
+    "eslint": "^3.6.1",
     "intercept-stdout": "^0.1.2",
     "istanbul": "^0.4.5",
     "lodash.clonedeep": "^4.5.0",

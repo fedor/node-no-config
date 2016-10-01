@@ -1,3 +1,4 @@
+'use strict'
 var maskKeys = ['secret', 'token', 'key', 'pass', 'pwd']
 module.exports = require('co').wrap(function* (params) {
 	var get = function (val, def) {
@@ -13,7 +14,7 @@ module.exports = require('co').wrap(function* (params) {
 
 	var mask = function (key, val) {
 		if (!maskSecrets) {
-			return val;
+			return val
 		}
 		var matches = maskKeys.filter(function(maskKey) {
 			return (key.toLowerCase().indexOf(maskKey) !== -1)
@@ -37,7 +38,7 @@ module.exports = require('co').wrap(function* (params) {
 		if (!resource.init) {
 			continue
 		}
-		resourceConfig = result[resourceName]
+		var resourceConfig = result[resourceName]
 		if (verbose) {
 			console.log('[' + resourceName + ']: starting')
 			Object.keys(resourceConfig).forEach(function (key) {

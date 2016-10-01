@@ -127,6 +127,3 @@ Every high-level key in configuration object is a resource name.
 ## Contributors
 Fedor Korshunov - [view contributions](https://github.com/fedor/node-no-config/commits?author=fedor)  
 Anurag Sharma - [view contributions](https://github.com/fedor/node-no-config/commits?author=anuragCES)
-
-## TODO
- - Add ESLint check
