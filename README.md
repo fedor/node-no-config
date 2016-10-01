@@ -12,7 +12,7 @@
 [![Test Coverage][codecov-image]][codecov-url]
 [![Dependency Status][david-image]][david-url]
 [![Dependency Status][david-dev-image]][david-url]  
-[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [Contributors](#contributors) | [TODO](#todo)
+[Intro](#intro) | [Quick start](#quick-start) | [Quick start (ES6)](#quick-start-es6) | [API](#api) | [Contributors](#contributors)
 ## Intro  
 > Why not `config`?
 
