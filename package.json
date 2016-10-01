@@ -1,10 +1,10 @@
 {
   "name": "no-config",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "config and resource loader",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/eslint/bin/eslint.js index.js && istanbul cover -x test.js tape test.js"
+    "test": "./node_modules/eslint/bin/eslint.js *.js && istanbul cover -x test.js tape test.js"
   },
   "repository": {
     "type": "git",

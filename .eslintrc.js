@@ -21,6 +21,7 @@ module.exports = {
             'error',
             'never'
         ],
+        'require-yield': 'off',
         'no-console': 'off'
     }
 }

@@ -163,7 +163,7 @@ test('NODE_ENV set, init() returns a Promise, Promise resolves: result is captur
 	try {
 		process.env.NODE_ENV = 'env1'
 		let config = cloneDeep(config_base)
-		config.resource1.init = function (input) {
+		config.resource1.init = function () {
 			return Promise.resolve('Promise result')
 		}
 		let result = yield noConfig({config})
@@ -178,7 +178,7 @@ test('NODE_ENV set, init() is a generator function and returns result: result is
 	try {
 		process.env.NODE_ENV = 'env1'
 		let config = cloneDeep(config_base)
-		config.resource1.init = function* (input) {
+		config.resource1.init = function* () {
 			return 'generator function result'
 		}
 		let result = yield noConfig({config})
@@ -193,7 +193,7 @@ test('NODE_ENV set, init() returns Promise, Promise rejects: rejects', co.wrap(f
 	try {
 		process.env.NODE_ENV = 'env1'
 		let config = cloneDeep(config_base)
-		config.resource1.init = function (input) {
+		config.resource1.init = function () {
 			return Promise.reject('Promise error')
 		}
 		yield noConfig({config})
@@ -208,7 +208,7 @@ test('NODE_ENV set, init() is a function and throws error: rejects', co.wrap(fun
 	try {
 		process.env.NODE_ENV = 'env1'
 		let config = cloneDeep(config_base)
-		config.resource1.init = function (input) {
+		config.resource1.init = function () {
 			throw 'function error'
 		}
 		yield noConfig({config})
@@ -223,7 +223,7 @@ test('NODE_ENV set, init() is a generator function and throws error: rejects', c
 	try {
 		process.env.NODE_ENV = 'env1'
 		let config = cloneDeep(config_base)
-		config.resource1.init = function* (input) {
+		config.resource1.init = function* () {
 			throw 'generator function error'
 		}
 		yield noConfig({config})
