@@ -120,7 +120,7 @@ Every high-level key in configuration object is a resource name.
 | Name                | Required? | Type       | Default            | Description. Handling                               |
 | ------------------- | --------- | ---------- | ------------------ | --------------------------------------------------- |
 | `<RESOURCE>`        | Optional  | Object     |                    | Resource configuration                              |
-| `<RESOURCE>.defaut` | Optional  | Object     | `{}`               | Default values                                      |
+| `<RESOURCE>.default` | Optional  | Object     | `{}`               | Default values                                      |
 | `<RESOURCE>.<ENV>`  | Optional  | Object     | `{}`               | ENV specific values. If a key duplicates `default` key, env-specific value is used |
 | `<RESOURCE>.init`   | Optional  | Function, Generator function  | | Called to initalize resource, `<RESOURCE>.init(result)`. If returns Promise or Generator, it got resolved with [co](https://github.com/tj/co). Result is saved to `result.instance`. |
 
